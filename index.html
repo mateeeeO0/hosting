@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Saludo Interactivo y Currículum!</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Íconos de las redes sociales (Font Awesome) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Estilos globales */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #FFB84D, #FF7F00, #FF6347, #FF1493); /* Gradiente más llamativo */
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite; /* Animación de gradiente */
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Estilo para las figuras geométricas que se mueven */
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .circle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: moveCircle 6s linear infinite;
+        }
+
+        .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 15%;
+        }
+
+        .circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 80%;
+        }
+
+        .circle:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 80%;
+            left: 50%;
+        }
+
+        @keyframes moveCircle {
+            0% { transform: translate(0, 0); opacity: 0.5; }
+            50% { transform: translate(100px, -100px); opacity: 0.3; }
+            100% { transform: translate(0, 0); opacity: 0.5; }
+        }
+
+        .triangle {
+            position: absolute;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            animation: moveTriangle 4s linear infinite;
+        }
+
+        .triangle:nth-child(4) {
+            border-bottom: 120px solid rgba(255, 255, 255, 0.2);
+            top: 30%;
+            left: 5%;
+        }
+
+        .triangle:nth-child(5) {
+            border-bottom: 120px solid rgba(255, 255, 255, 0.2);
+            top: 70%;
+            left: 70%;
+        }
+
+        @keyframes moveTriangle {
+            0% { transform: translate(0, 0); opacity: 0.5; }
+            50% { transform: translate(-100px, 100px); opacity: 0.3; }
+            100% { transform: translate(0, 0); opacity: 0.5; }
+        }
+
+        /* Estilo específico para el texto de la etiqueta */
+        label {
+            color: #000; /* Negro */
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            animation: fadeInHeader 2s ease-in-out;
+        }
+
+        @keyframes fadeInHeader {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Blanco semi-transparente */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 1.5s ease-in-out;
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            width: 80%;
+            border: 2px solid #FF7F00; /* Naranja */
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #FFB84D; /* Amarillo */
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 184, 77, 0.8);
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #FF7F00; /* Naranja */
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #fff;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #FFB84D; /* Amarillo */
+            transform: scale(1.1);
+        }
+
+        .message {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #FF7F00; /* Naranja */
+            color: #fff;
+            border-radius: 10px;
+            max-width: 90%;
+            margin: 20px auto;
+            display: none;
+            animation: fadeInMessage 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInMessage {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .curriculum-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 600px;
+            margin-top: 50px;
+            text-align: left;
+            display: none;
+            animation: fadeInCurriculum 2s ease-in-out;
+        }
+
+        @keyframes fadeInCurriculum {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .curriculum-card h2 {
+            margin-top: 0;
+            color: #FF7F00; /* Naranja */
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .curriculum-card p, .curriculum-card ul {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .curriculum-card a {
+            color: #FF7F00; /* Naranja */
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .curriculum-card ul {
+            padding-left: 20px;
+        }
+
+        .curriculum-card ul li {
+            margin-bottom: 10px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px; /* Centrado de la imagen */
+            object-fit: cover;
+            border: 5px solid #FF7F00; /* Borde */
+        }
+
+        /* Nueva sección de preguntas y respuestas (inicialmente oculta) */
+        .question-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            display: none; /* Inicialmente oculta */
+        }
+
+        .question-container input[type="text"] {
+            padding: 12px;
+            width: 80%;
+            margin-bottom: 20px;
+            border: 2px solid #FFB84D; /* Amarillo */
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+
+        .question-container button {
+            padding: 10px 25px;
+            background-color: #FF7F00;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .question-container button:hover {
+            background-color: #FFB84D;
+        }
+
+        .answer {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #FFB84D; /* Amarillo */
+            color: #fff;
+            border-radius: 8px;
+            display: none;
+        }
+
+        /* Estilos para los íconos de redes sociales */
+        .social-links {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            transition: bottom 0.3s ease;
+        }
+
+        .social-links a {
+            font-size: 3rem;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-shapes">
+        <!-- Figuras de fondo -->
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="triangle"></div>
+        <div class="triangle"></div>
+    </div>
+
+    <h1>¡Bienvenido a mi curriculum!</h1>
+
+    <div class="container">
+        <label for="nombre">Escribe tu nombre para recibir un saludo:</label><br>
+        <input type="text" id="nombre" placeholder="Tu nombre aquí..." />
+        <button id="saludar-button">¡Saludar!</button>
+
+        <div id="saludo" class="message"></div>
+    </div>
+
+    <!-- Sección de tu currículum (inicialmente oculta) -->
+    <div class="curriculum-card">
+        <img src="https://i.pinimg.com/564x/0e/26/83/0e2683faaeecb8a9a15892cc68c5ad6c.jpg" alt="Foto de perfil" class="profile-img">
+        <h2>Currículum de Mateo Benites</h2>
+        <p><strong>Nombre:</strong> Mateo Benites</p>
+        <p><strong>Correo Electrónico:</strong> <a href="mailto:mateobb1303@gmail.com">mateobb1303@gmail.com</a></p>
+        <p><strong>Teléfono:</strong> +593 98 172 7098</p> <!-- Teléfono de Ecuador -->
+        <p><strong>Información Personal:</strong></p>
+        <ul>
+            <li><strong>Fecha de Nacimiento:</strong> 13 de marzo de 2007</li>
+            <li><strong>Ubicación:</strong> Quito, Ecuador</li>
+            <li><strong>Idiomas:</strong> Español (Nativo), Inglés (Alto)</li>
+        </ul>
+
+        <p><strong>Educación:</strong></p>
+        <ul>
+            <li>Estudiante de Ciencia de Datos en la Pontificia Universidad Católica de Ecuador</li>
+            <li>Estudiante de Matemáticas Discretas</li>
+        </ul>
+
+        <p><strong>Experiencia:</strong></p>
+        <ul>
+            <li><strong>Python</strong> - Trabajé en proyectos de investigación relacionados con teoría de grafos en la universidad.</li>
+        </ul>
+
+        <p><strong>Habilidades:</strong></p>
+        <ul>
+            <li>Programación en Python</li>
+            <li>Matemáticas discretas y teoría de grafos</li>
+            <li>Trabajo en equipo y liderazgo</li>
+        </ul>
+    </div>
+
+    <!-- Sección de preguntas (inicialmente oculta) -->
+    <div class="question-container">
+        <h2>Pregúntame!</h2>
+        <input type="text" id="question" placeholder="Escribe tu pregunta aquí..." />
+        <button id="ask-button">Enviar Pregunta</button>
+
+        <div id="answer" class="answer">
+            ¡Gracias por tu pregunta! 😊
+        </div>
+    </div>
+
+    <!-- Enlaces de redes sociales -->
+    <div class="social-links">
+        <a href="https://twitter.com/tu_usuario" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/mmate_8" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://linkedin.com/in/tu_usuario" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+
+    <script>
+        // Funcionalidad para saludar al usuario cuando se presiona el botón
+        document.getElementById("saludar-button").addEventListener("click", function() {
+            var nombre = document.getElementById("nombre").value;
+            var saludo = document.getElementById("saludo");
+
+            if (nombre) {
+                saludo.textContent = "¡Hola, " + nombre + "! Bienvenido a mi currículum interactivo.";
+                saludo.style.display = "block"; // Mostrar el saludo
+                document.querySelector(".curriculum-card").style.display = "block"; // Mostrar currículum
+                document.querySelector(".question-container").style.display = "block"; // Mostrar sección de preguntas
+            } else {
+                saludo.textContent = "Por favor, ingresa tu nombre.";
+                saludo.style.display = "block"; // Mostrar el mensaje de error
+            }
+        });
+
+        // Funcionalidad para enviar pregunta
+        document.getElementById("ask-button").addEventListener("click", function() {
+            var question = document.getElementById("question").value;
+            var answer = document.getElementById("answer");
+
+            if (question) {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>

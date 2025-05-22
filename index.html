@@ -1,22 +1,70 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Resultados del Procesamiento</h1>
-        <h2>Imagen Original: {{ filename }}</h2>
-        <h3>Imágenes Procesadas:</h3>
-        <ul>
-            <li><img src="{{ url_for('static', filename='uploads/imagen_bn.jpg') }}" alt="Blanco y Negro"></li>
-            <li><img src="{{ url_for('static', filename='uploads/imagen_sepia.jpg') }}" alt="Sepia"></li>
-            <li><img src="{{ url_for('static', filename='uploads/imagen_vintage.jpg') }}" alt="Vintage"></li>
-        </ul>
-        <a href="/">Subir otra imagen</a>
-    </div>
-</body>
-</html>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.galeria {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.galeria img {
+    width: 30%;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.galeria img:hover {
+    transform: scale(1.05);
+    border: 2px solid #007bff;
+}
+
+.resultado {
+    margin-top: 20px;
+}
+
+.resultado img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filtros {
+    margin-top: 20px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
